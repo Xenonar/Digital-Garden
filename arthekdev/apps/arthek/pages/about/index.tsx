@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import styled from 'styled-components';
+import tw from "tailwind-styled-components"
 
 /* eslint-disable-next-line */
 export interface AboutProps {}
