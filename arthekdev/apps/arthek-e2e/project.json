@@ -1,0 +1,28 @@
+{
+  "root": "apps/arthek-e2e",
+  "sourceRoot": "apps/arthek-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/arthek-e2e/cypress.json",
+        "devServerTarget": "arthek:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "arthek:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/arthek-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["arthek"]
+}
