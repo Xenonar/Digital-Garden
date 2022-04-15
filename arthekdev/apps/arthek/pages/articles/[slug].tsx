@@ -5,33 +5,52 @@ import { join } from "path";
 import { ParsedUrlQuery } from "querystring";
 import styled from "styled-components";
 import tw from "tailwind-styled-components"
+import { getParsedFileContentBySlug, markdown} from '@arthekdev/markdown'
 
 /* eslint-disable-next-line */
 export interface ArticleProps extends ParsedUrlQuery {
   slug: string;
+  frontMatter: any;
 
 }
 //Define a viariable that holds the path to article folder
 const POSTS_PATH = join(process.cwd(), '_articles')
 
-const StyledArticle = styled.div`
-  color: pink;
-`;
-const ArticleContainer = tw(StyledArticle)`
-   flex
+const ArticleContainer = tw.div`
+    flex
+    prose
+    prose-lg
+
+`
+
+const Container = tw.div`
+    m-6
+`
+
+const Title = tw.div`
+    text-2xl
 `
 
 export function Article(props: ArticleProps) {
   return (
-    <ArticleContainer>
-      <h1>Visting, {props.slug}!</h1>
-    </ArticleContainer>
+      <Container>
+        <ArticleContainer>
+            <Title> Visting, {props.frontMatter.title}! </Title>
+            <div>by {props.frontMatter.author.name}</div>
+        </ArticleContainer>
+    </Container>
   );
 }
 export const getStaticProps: GetStaticProps<ArticleProps> = async ({params}:{params: ArticleProps}) =>{
-  return {
+    // 1. parse the content of our markdown and seperate it into frontmatter and content
+
+    const articleMarkdownContent = getParsedFileContentBySlug(params.slug, POSTS_PATH)
+    // 2. convert markdown content => HTML
+    const renderHTML = markdown(articleMarkdownContent)
+ 
+    return {
     props:{
-      slug: params.slug,
+      frontMatter: articleMarkdownContent.frontMatter,
     }
   }
 }

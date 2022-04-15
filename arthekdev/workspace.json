@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "arthek": "apps/arthek",
-    "arthek-e2e": "apps/arthek-e2e"
+    "arthek-e2e": "apps/arthek-e2e",
+    "markdown": "libs/markdown"
   }
 }
