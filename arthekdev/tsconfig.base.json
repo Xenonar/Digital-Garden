@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@arthekdev/markdown": ["libs/markdown/src/index.ts"]
+      "@arthekdev/markdown": ["libs/markdown/src/index.ts"],
+      "@arthekdev/shared/mdx-element": ["libs/shared/mdx-element/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

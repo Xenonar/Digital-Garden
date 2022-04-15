@@ -3,6 +3,7 @@
   "projects": {
     "arthek": "apps/arthek",
     "arthek-e2e": "apps/arthek-e2e",
-    "markdown": "libs/markdown"
+    "markdown": "libs/markdown",
+    "shared-mdx-element": "libs/shared/mdx-element"
   }
 }

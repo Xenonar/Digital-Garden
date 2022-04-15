@@ -6,6 +6,7 @@ import { ParsedUrlQuery } from "querystring";
 import styled from "styled-components";
 import tw from "tailwind-styled-components"
 import { getParsedFileContentBySlug, markdown} from '@arthekdev/markdown'
+import { MDXRemote } from 'next-mdx-remote'
 
 /* eslint-disable-next-line */
 export interface ArticleProps extends ParsedUrlQuery {
@@ -17,18 +18,17 @@ export interface ArticleProps extends ParsedUrlQuery {
 const POSTS_PATH = join(process.cwd(), '_articles')
 
 const ArticleContainer = tw.div`
-    flex
     prose
     prose-lg
-
 `
-
 const Container = tw.div`
     m-6
 `
-
 const Title = tw.div`
     text-2xl
+`
+const Subtitle = tw.div`
+    text-xl
 `
 
 export function Article(props: ArticleProps) {
@@ -36,8 +36,10 @@ export function Article(props: ArticleProps) {
       <Container>
         <ArticleContainer>
             <Title> Visting, {props.frontMatter.title}! </Title>
-            <div>by {props.frontMatter.author.name}</div>
+            <Subtitle>by {props.frontMatter.author.name}</Subtitle>
         </ArticleContainer>
+        <hr/>
+        <MDXRemote {...props.html} />
     </Container>
   );
 }
@@ -45,12 +47,13 @@ export const getStaticProps: GetStaticProps<ArticleProps> = async ({params}:{par
     // 1. parse the content of our markdown and seperate it into frontmatter and content
 
     const articleMarkdownContent = getParsedFileContentBySlug(params.slug, POSTS_PATH)
-    // 2. convert markdown content => HTML
-    const renderHTML = markdown(articleMarkdownContent)
+    // 2. convert markdown content => HTML by pass down the content
+    const renderHTML = await markdown(articleMarkdownContent.content)
  
     return {
     props:{
       frontMatter: articleMarkdownContent.frontMatter,
+      html: renderHTML
     }
   }
 }
