@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@arthekdev/markdown": ["libs/markdown/src/index.ts"],
-      "@arthekdev/shared/mdx-element": ["libs/shared/mdx-element/src/index.ts"]
+      "@arthekdev/shared/mdx-element": ["libs/shared/mdx-element/src/index.ts"],
+      "@arthekdev/shared/mdx-element/*": ["libs/shared/mdx-element/src/lib/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -17,7 +17,7 @@ export interface ArticleProps extends ParsedUrlQuery {
 
 }
 const mdxElements = {
-  Youtube: dynamic(async ()=>{
+  Youtube: dynamic(async()=>{
     const components = await import('@arthekdev/shared/mdx-element')
     return components.Youtube
   }),
