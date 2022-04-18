@@ -7,12 +7,17 @@ import styled from "styled-components";
 import tw from "tailwind-styled-components"
 import { getParsedFileContentBySlug, markdown} from '@arthekdev/markdown'
 import { MDXRemote } from 'next-mdx-remote'
+import { Youtube, CustomLink} from '@arthekdev/shared/mdx-element'
 
 /* eslint-disable-next-line */
 export interface ArticleProps extends ParsedUrlQuery {
   slug: string;
   frontMatter: any;
 
+}
+const mdxElements = {
+  Youtube,
+  a: CustomLink,
 }
 //Define a viariable that holds the path to article folder
 const POSTS_PATH = join(process.cwd(), '_articles')
@@ -39,7 +44,7 @@ export function Article(props: ArticleProps) {
             <Subtitle>by {props.frontMatter.author.name}</Subtitle>
         </ArticleContainer>
         <hr/>
-        <MDXRemote {...props.html} />
+        <MDXRemote {...props.html} components={mdxElements} />
     </Container>
   );
 }
@@ -49,7 +54,7 @@ export const getStaticProps: GetStaticProps<ArticleProps> = async ({params}:{par
     const articleMarkdownContent = getParsedFileContentBySlug(params.slug, POSTS_PATH)
     // 2. convert markdown content => HTML by pass down the content
     const renderHTML = await markdown(articleMarkdownContent.content)
- 
+
     return {
     props:{
       frontMatter: articleMarkdownContent.frontMatter,
