@@ -11,7 +11,11 @@ const StyledYoutube = styled.div`
 `;
 
 export function Youtube(props: YoutubeProps) {
-
+  if (typeof window === 'undefined') {
+    return (
+    <>
+    </>);
+  } else {
   return (
     <StyledYoutube>
       <iframe
@@ -21,7 +25,7 @@ export function Youtube(props: YoutubeProps) {
         title={props.title}
         ></iframe>
     </StyledYoutube>
-  );
+  );}
 }
 
 export default Youtube;
