@@ -1,16 +1,25 @@
 import styled from 'styled-components';
 
 /* eslint-disable-next-line */
-export interface YoutubeProps {}
+export interface YoutubeProps {
+  title: string,
+  uid: string
+}
 
 const StyledYoutube = styled.div`
   color: pink;
 `;
 
 export function Youtube(props: YoutubeProps) {
+
   return (
     <StyledYoutube>
-      <h1>Welcome to Youtube!</h1>
+      <iframe
+        src={`https://www.youtube.com/embed/${props.uid}`}
+        width="100%"
+        height="500px"
+        title={props.title}
+        ></iframe>
     </StyledYoutube>
   );
 }

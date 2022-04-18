@@ -8,6 +8,7 @@ import tw from "tailwind-styled-components"
 import { getParsedFileContentBySlug, markdown} from '@arthekdev/markdown'
 import { MDXRemote } from 'next-mdx-remote'
 import { Youtube, CustomLink} from '@arthekdev/shared/mdx-element'
+import dynamic from "next/dynamic";
 
 /* eslint-disable-next-line */
 export interface ArticleProps extends ParsedUrlQuery {
@@ -16,8 +17,11 @@ export interface ArticleProps extends ParsedUrlQuery {
 
 }
 const mdxElements = {
-  Youtube,
-  a: CustomLink,
+  Youtube: dynamic(async ()=>{
+    const components = await import('@arthekdev/shared/mdx-element')
+    return components.Youtube
+  }),
+  // a: CustomLink,
 }
 //Define a viariable that holds the path to article folder
 const POSTS_PATH = join(process.cwd(), '_articles')
