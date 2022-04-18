@@ -21,7 +21,9 @@ const mdxElements = {
     const components = await import('@arthekdev/shared/mdx-element')
     return components.Youtube
   }),
-  // a: CustomLink,
+  a: dynamic(async()=>{
+    const components = await import('@arthekdev/shared/mdx-element')
+    return components.CustomLink})
 }
 //Define a viariable that holds the path to article folder
 const POSTS_PATH = join(process.cwd(), '_articles')
